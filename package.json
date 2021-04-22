@@ -7,9 +7,12 @@
     "wp-gen": "./dist/cli.js"
   },
   "dependencies": {
+    "@types/ncp": "^2.0.4",
     "@types/node": "^14.14.41",
     "chalk": "^4.1.0",
     "inquirer": "^8.0.0",
+    "ncp": "^2.0.0",
+    "replace": "^1.2.1",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
