@@ -2,16 +2,17 @@
 
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { create } from "./commands";
+// import { create } from "./commands";
+import { generateFilesFromTemplate } from "./utils";
 const argv = yargs(hideBin(process.argv)).argv;
 
-(function () {
-  switch (argv._[0]) {
-    case "create": {
-      create[argv._[1]](argv);
-      break;
-    }
-    default:
-      console.log("oops not a valid command");
-  }
-})();
+// (function () {
+//   switch (argv._[0]) {
+//     case "create": {
+//       create[argv._[1]](argv);
+//       break;
+//     }
+//     default:
+//       console.log("oops not a valid command");
+//   }
+// })();

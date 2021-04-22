@@ -1,5 +1,5 @@
 {
-  "name": "wp-dev-cli",
+  "name": "wp-gen",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -10,6 +10,7 @@
     "@types/ncp": "^2.0.4",
     "@types/node": "^14.14.41",
     "chalk": "^4.1.0",
+    "get-root-path": "^2.0.2",
     "inquirer": "^8.0.0",
     "ncp": "^2.0.0",
     "replace": "^1.2.1",

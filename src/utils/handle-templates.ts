@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import { ncp } from "ncp";
 import * as path from "path";
+import rootDir from "../rootDir";
 // @ts-ignore-next-line
 import * as replace from "replace";
 
@@ -67,7 +68,7 @@ export function searchAndReplace(templateDir: string) {
 export function copyTemplate(templatePath: string, newDirectory: string) {
   return new Promise((resolve, reject) => {
     ncp(
-      `${process.cwd()}/templates/${templatePath}`,
+      path.resolve(`${rootDir}/../templates/${templatePath}`),
       newDirectory,
       function (e) {
         if (e) {
