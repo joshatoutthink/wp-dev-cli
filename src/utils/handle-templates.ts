@@ -1,7 +1,4 @@
 import * as fs from "fs";
-import * as fsp from "fs/promises";
-import { copyFile } from "node:fs";
-import { basename } from "node:path";
 import { ncp } from "ncp";
 import * as path from "path";
 // @ts-ignore-next-line
@@ -54,8 +51,9 @@ export function rename(regex: RegExp, replaceValue: string, path: string) {
   const newPath = path.replace(regex, replaceValue);
   fs.renameSync(path, newPath);
 }
-export function searchAndReplaceFactory(templateDir: string) {
-  return function searchAndReplace(regex: string, replacement: string) {
+
+export function searchAndReplace(templateDir: string) {
+  return function _searchAndReplace(regex: string, replacement: string) {
     replace({
       regex,
       replacement,
@@ -66,20 +64,102 @@ export function searchAndReplaceFactory(templateDir: string) {
   };
 }
 
-export async function generateFilesFromTemplate(
-  templatePath: string,
-  searchAndReplaceList: { search: string; replace: string }[]
-) {
-  //copy template to dir -> ncp for the win
-  //get all paths
-  //rename all files and dirZ
-  //search and replace all in files
+export function copyTemplate(templatePath: string, newDirectory: string) {
+  return new Promise((resolve, reject) => {
+    ncp(
+      `${process.cwd()}/templates/${templatePath}`,
+      newDirectory,
+      function (e) {
+        if (e) {
+          console.log(e);
+          reject(e);
+        }
+        resolve(null);
+      }
+    );
+  });
 }
 
-ncp(
-  `${process.cwd()}/templates/plugin/plugin-name`,
-  `${process.cwd()}/notreal`,
-  function (e) {
-    if (e) console.log(e);
+interface CaseConfigInterface {
+  search: string;
+  replace: string;
+}
+interface CaseInterface {
+  snakeCase?: CaseConfigInterface;
+  kebabCase: CaseConfigInterface;
+  upperSnakeCase?: CaseConfigInterface;
+  TitleSnakeCase?: CaseConfigInterface;
+}
+
+//type helper
+function caseConfigDefined(
+  caseConfigInterface: CaseConfigInterface | undefined
+) {
+  if (typeof caseConfigInterface !== "undefined") {
+    return caseConfigInterface as CaseConfigInterface;
+  } else {
+    return false;
   }
-);
+}
+
+export async function generateFilesFromTemplate({
+  templatePath,
+  destination,
+  searchAndReplaceConfig,
+}: {
+  templatePath: string;
+  destination: string;
+  searchAndReplaceConfig: CaseInterface;
+}) {
+  //copy template to dir
+  await copyTemplate(templatePath, destination);
+
+  //get all paths
+  const paths = getFiles(walkDirFactory()(destination));
+  const searchAndReplaceTemplate = searchAndReplace(destination);
+  paths.forEach((templatePathInfo) => {
+    //rename all files and dirZ
+    rename(
+      new RegExp(searchAndReplaceConfig.kebabCase?.search, "gi"),
+      searchAndReplaceConfig.kebabCase?.replace,
+      templatePathInfo.path
+    );
+  });
+  //search and replace all in files
+  Object.keys(searchAndReplaceConfig).forEach((caseType) => {
+    //making sure we have something defined
+    const caseConfig = caseConfigDefined(
+      searchAndReplaceConfig[caseType as keyof CaseInterface]
+    );
+    if (caseConfig) {
+      const { search, replace } = caseConfig;
+      searchAndReplaceTemplate(search, replace);
+    }
+  });
+}
+
+//==FOR TESTING PURPOSES
+// const testPluginInfo = {
+//   templatePath: "plugin/plugin-name",
+//   destination: process.cwd() + "/test",
+//   searchAndReplaceConfig: {
+//     snakeCase: {
+//       search: "plugin_name",
+//       replace: "my_plugin",
+//     },
+//     kebabCase: {
+//       search: "plugin-name",
+//       replace: "my-plugin",
+//     },
+//     upperSnakeCase: {
+//       search: "PLUGIN_NAME",
+//       replace: "MY_PLUGIN",
+//     },
+//     TitleSnakeCase: {
+//       search: "Plugin_Name",
+//       replace: "My_Plugin",
+//     },
+//   },
+// };
+
+// generateFilesFromTemplate({ ...testPluginInfo }).catch(console.error);
