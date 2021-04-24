@@ -14,3 +14,7 @@ export function createNameSpace(string: string) {
     .join("")
     .toUpperCase();
 }
+
+export function toSnakeCase(string: string): string {
+  return string.replace(" ", "_").replace("-", "_").toLowerCase();
+}

@@ -1,18 +1,6 @@
 #!/usr/bin/env node
 
-import yargs from "yargs";
-import { hideBin } from "yargs/helpers";
-// import { create } from "./commands";
-import { generateFilesFromTemplate } from "./utils";
-const argv = yargs(hideBin(process.argv)).argv;
+import router from "./router";
+import { argParse } from "./argParse";
 
-// (function () {
-//   switch (argv._[0]) {
-//     case "create": {
-//       create[argv._[1]](argv);
-//       break;
-//     }
-//     default:
-//       console.log("oops not a valid command");
-//   }
-// })();
+router(argParse());

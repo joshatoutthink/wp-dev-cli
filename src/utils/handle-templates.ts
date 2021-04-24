@@ -45,7 +45,9 @@ export function getDirectories(paths: TemplatePathInfoInterface[]) {
   return paths.filter((path) => path.isDir === true);
 }
 export function getFiles(paths: TemplatePathInfoInterface[]) {
-  return paths.filter((path) => path.isDir === false);
+  return paths
+    .filter((path) => path.isDir === false)
+    .filter((p) => path.basename(p.path) !== ".DS_Store");
 }
 
 export function rename(regex: RegExp, replaceValue: string, path: string) {
@@ -85,7 +87,7 @@ interface CaseConfigInterface {
   search: string;
   replace: string;
 }
-interface CaseInterface {
+export interface CaseInterface {
   snakeCase?: CaseConfigInterface;
   kebabCase: CaseConfigInterface;
   upperSnakeCase?: CaseConfigInterface;

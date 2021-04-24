@@ -3,14 +3,20 @@ export type Choices<T extends ReadonlyArray<unknown>> = T extends ReadonlyArray<
 >
   ? Choices
   : never;
-export const CreateCommands = [
+export type CreateCommandsType = [
   "cpt",
   "plugin",
   "admin-page",
   "theme",
   "endpoint",
-  "script",
+  "script"
 ];
-export type CreateCommandTypes = Choices<typeof CreateCommands>;
-export type Argv = Record<string, string | number | unknown>; //TODO better type this
-export type CreateRunnerType = Record<CreateCommandTypes, (args: Argv) => void>;
+
+export type CreateCommandTypes = Choices<CreateCommandsType>;
+
+export type CreateRunnerType = Record<string, (args: any) => void>;
+
+export type OptionsType = {
+  option: string;
+  value: number | boolean | string;
+}[];
