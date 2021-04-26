@@ -1,5 +1,5 @@
 import createCPT from "../commands/createCPT";
-import createPlugin from "../commands/createPlugin";
+import createPlugin from "../commands/createPlugin/helpers";
 import createAdminPage from "../commands/createAdminPage";
 import createTheme from "../commands/createTheme";
 import createEndpoint from "../commands/createEndpoint";

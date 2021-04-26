@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
-import router from "./router";
-import { argParse } from "./argParse";
+import yargs from "yargs";
 
-router(argParse());
+yargs(process.argv.slice(2))
+  .commandDir("./commands")
+  .example(
+    "yarn rw g page home /",
+    "\"Create a page component named 'Home' at path '/'\""
+  )
+  .demandCommand()
+  .strict().argv;
