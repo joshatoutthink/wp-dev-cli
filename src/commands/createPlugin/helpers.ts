@@ -14,7 +14,7 @@ export default async function createPlugin(options: any) {
   let searchAndReplaceConfig: CaseInterface;
 
   //DESTINATION
-  if (!inPluginDir() && noFolderNameGiven(options)) {
+  if (!inPluginDir() && !options.destination) {
     console.log("Creating Plugin in current directory");
     destination = process.cwd();
   } else {
@@ -79,13 +79,7 @@ function inquireOfOptions(options: OptionsType): CaseInterface {
   };
 
   const questions = [];
-  const optionsObject = options.reduce(
-    (obj: Record<string, string | number | boolean>, option) => {
-      obj[option.option] = option.value;
-      return obj;
-    },
-    {}
-  );
+  const optionsObject = options;
   if (!("--plugin-slug" in optionsObject)) {
     questions.push(
       new Question("kebabCase", "What is the Plugin's Slug", "my-plugin")
