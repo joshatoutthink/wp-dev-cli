@@ -113,6 +113,7 @@ function noFolderNameGiven(options: OptionsType) {
     options.length == 0 || options.findIndex((o) => o.option === "--folder")
   );
 }
+
 function isInteractive(options: OptionsType) {
   return (
     options.includes({ option: "--interactive", value: true }) ||
