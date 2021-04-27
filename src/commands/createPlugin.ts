@@ -1,4 +1,4 @@
-import createPlugin from "./createPlugin/helpers";
+import createPlugin from "./createPlugin/index";
 
 exports.command = "createPlugin [destination]";
 exports.desc = "creates a plugin";

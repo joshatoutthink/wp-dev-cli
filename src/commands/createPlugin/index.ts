@@ -15,6 +15,7 @@ export default async function createPlugin(options: any) {
 
   //DESTINATION
   if (!inPluginDir() && !options.destination) {
+    //TODO write comment
     console.log("Creating Plugin in current directory");
     destination = process.cwd();
   } else {
@@ -90,10 +91,12 @@ function inquireOfOptions(options: OptionsType): CaseInterface {
     );
   }
 
-  if (!("--plugin-instance" in optionsObject)) {
+  if ("--plugin-instance" in optionsObject) {
     searchAndReplaceConfig.snakeCase.replace = toSnakeCase(
-      String(optionsObject["--plugin-slug"])
+      String(optionsObject["--plugin-instance"])
     );
+  } else {
+    //TODO push question
   }
 
   return searchAndReplaceConfig;
@@ -101,11 +104,6 @@ function inquireOfOptions(options: OptionsType): CaseInterface {
 
 function inPluginDir() {
   return path.basename(process.cwd()) == "plugins";
-}
-function noFolderNameGiven(options: OptionsType) {
-  return Boolean(
-    options.length == 0 || options.findIndex((o) => o.option === "--folder")
-  );
 }
 
 function isInteractive(options: OptionsType) {
