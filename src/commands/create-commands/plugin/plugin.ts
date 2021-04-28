@@ -1,4 +1,4 @@
-import createPlugin from "./createPlugin/index";
+import createPlugin from "./helpers";
 
 exports.command = "createPlugin [destination]";
 exports.desc = "creates a plugin";
@@ -7,4 +7,5 @@ exports.builder = {
     default: ".",
   },
 };
+//
 exports.handler = createPlugin;

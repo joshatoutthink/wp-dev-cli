@@ -31,7 +31,7 @@ export function walkDirFactory() {
     return list;
   };
 }
-
+//comment
 export function getPathType(path: string) {
   const stats = fs.statSync(path);
   return stats.isFile()

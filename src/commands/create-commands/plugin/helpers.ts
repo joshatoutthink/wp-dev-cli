@@ -1,10 +1,10 @@
-import type { OptionsType } from "../../types";
+import type { OptionsType } from "../../../types";
 import * as path from "path";
 import {
   CaseInterface,
   toSnakeCase,
   generateFilesFromTemplate,
-} from "../../utils";
+} from "../../../utils";
 import inquirer = require("inquirer");
 
 export default async function createPlugin(options: any) {
@@ -106,12 +106,12 @@ function inPluginDir() {
   return path.basename(process.cwd()) == "plugins";
 }
 
-function isInteractive(options: OptionsType) {
-  return (
-    options.includes({ option: "--interactive", value: true }) ||
-    options.length == 0
-  );
-}
+// function isInteractive(options: OptionsType) {
+// return (
+//     options.includes({ option: "--interactive", value: true }) ||
+//     options.length == 0
+
+// }
 
 class Question {
   constructor(

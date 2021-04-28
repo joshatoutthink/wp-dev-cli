@@ -2,6 +2,7 @@
 
 import yargs from "yargs";
 
+//
 yargs(process.argv.slice(2))
   .commandDir("./commands")
   .example(

@@ -19,4 +19,5 @@ export type CreateRunnerType = Record<string, (args: any) => void>;
 export type OptionsType = {
   option: string;
   value: number | boolean | string;
+  //
 }[];
