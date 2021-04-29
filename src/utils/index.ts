@@ -18,3 +18,23 @@ export function createNameSpace(string: string) {
 export function toSnakeCase(string: string): string {
   return string.replace(" ", "_").replace("-", "_").toLowerCase();
 }
+export function toUpperSnakeCase(string: string): string {
+  return toSnakeCase(string).toUpperCase();
+}
+export function toTitleSnakeCase(string: string): string {
+  const lowerSnakeCase = toSnakeCase(string);
+  return upperCaseInEach(lowerSnakeCase, "_");
+}
+export function toKebabCase(string: string): string {
+  return slugify(string);
+}
+
+function upperCaseInEach(words: string, splitOn: string): string {
+  return words.split(splitOn).map(capFirst).join(splitOn).toUpperCase();
+}
+function capFirst(word: string) {
+  const cap = word.charAt(0).toUpperCase();
+  const letters = word.split("");
+  letters.splice(0, 1, cap);
+  return letters.join("");
+}

@@ -3,7 +3,7 @@ import { ncp } from "ncp";
 import * as path from "path";
 import rootDir from "../rootDir";
 // @ts-ignore-next-line
-import * as replace from "replace";
+import replace from "replace";
 
 interface TemplatePathInfoInterface {
   path: string;
@@ -91,7 +91,7 @@ export interface CaseInterface {
   snakeCase?: CaseConfigInterface;
   kebabCase: CaseConfigInterface;
   upperSnakeCase?: CaseConfigInterface;
-  TitleSnakeCase?: CaseConfigInterface;
+  titleSnakeCase?: CaseConfigInterface;
 }
 
 //type helper

@@ -1,9 +1,9 @@
 import createPlugin from "./helpers";
 
-exports.command = "createPlugin [destination]";
+exports.command = "plugin [pluginName]";
 exports.desc = "creates a plugin";
 exports.builder = {
-  destination: {
+  pluginName: {
     default: ".",
   },
 };
