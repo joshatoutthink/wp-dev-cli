@@ -10,7 +10,10 @@ import {
 } from "../../../utils";
 import inquirer = require("inquirer");
 import { OptionsType, CaseTypes } from "../../../types";
-import type { PluginOptions } from "./pluginTypes";
+import {
+  PluginOptions,
+  searchAndReplaceConfig as pluginSearAndReplaceConfig,
+} from "./pluginTypes";
 export default async function createPlugin(optionsFromYargs: OptionsType) {
   //pull from configs
   const options = argMerger(optionsFromYargs, "plugin");
@@ -52,24 +55,8 @@ async function inquireOfOptions(
   options: PluginOptions,
   defaults: PluginOptions
 ): Promise<CaseInterface> {
-  const searchAndReplaceConfig = {
-    snakeCase: {
-      search: "plugin_name",
-      replace: "my_plugin",
-    },
-    kebabCase: {
-      search: "plugin-name",
-      replace: "my-plugin",
-    },
-    upperSnakeCase: {
-      search: "PLUGIN_NAME",
-      replace: "MY_PLUGIN",
-    },
-    titleSnakeCase: {
-      search: "Plugin_Name",
-      replace: "My_Plugin",
-    },
-  };
+  //Duplicate for safety
+  const searchAndReplaceConfig = { ...pluginSearAndReplaceConfig };
 
   const questions = [];
 
