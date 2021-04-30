@@ -9,8 +9,8 @@ import {
   argMerger,
 } from "../../../utils";
 import inquirer = require("inquirer");
-import { OptionsType } from "../../../types";
-
+import { OptionsType, CaseTypes } from "../../../types";
+import type { PluginOptions } from "./pluginTypes";
 export default async function createPlugin(optionsFromYargs: OptionsType) {
   //pull from configs
   const options = argMerger(optionsFromYargs, "plugin");
@@ -215,16 +215,3 @@ function generateDefaultOptions(pluginName: string) {
 
   return defaults;
 }
-
-type CaseTypes = {
-  kebabCase: string;
-  snakeCase: string;
-  upperSnakeCase: string;
-  titleSnakeCase: string;
-};
-type PluginOptions = {
-  pluginSlug: string;
-  pluginInstance: string;
-  pluginConst: string;
-  pluginClass: string;
-};
