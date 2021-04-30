@@ -134,13 +134,6 @@ async function inquireOfOptions(
 //   return path.basename(process.cwd()) == "plugins";
 // }
 
-// function isInteractive(options: OptionsType) {
-// return (
-//     options.includes({ option: "--interactive", value: true }) ||
-//     options.length == 0
-
-// }
-
 class Question {
   constructor(
     public name: string,
