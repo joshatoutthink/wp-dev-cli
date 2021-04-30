@@ -3,7 +3,7 @@ exports.command = "create <command>";
 exports.description = "Manage set of tracked repos";
 
 exports.builder = function (yargs: Argv) {
-  return yargs.commandDir("create-commands", {
+  return yargs.commandDir("create", {
     recurse: true,
     exclude: /\/util\//,
   });
