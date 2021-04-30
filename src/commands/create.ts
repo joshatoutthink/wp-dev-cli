@@ -1,6 +1,6 @@
 import { Argv } from "yargs";
 exports.command = "create <command>";
-exports.description = "Manage set of tracked repos";
+exports.description = "Scaffold out a wp project, Post type or Interface";
 
 exports.builder = function (yargs: Argv) {
   return yargs.commandDir("create", {

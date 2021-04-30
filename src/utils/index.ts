@@ -39,3 +39,5 @@ function capFirst(word: string) {
   letters.splice(0, 1, cap);
   return letters.join("");
 }
+
+export function findRoot() {}
