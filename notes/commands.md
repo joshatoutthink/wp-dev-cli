@@ -25,3 +25,5 @@ this will allow us to be really flexible and still move on with
 |- moduleTypes.ts - this is where all the types and options will come from
 
 ## module should allow specifying the template path.
+
+## need to add in all project templates a wp-gen config that says what kind of project it is so we know where to place cpt, or how to deploy it.

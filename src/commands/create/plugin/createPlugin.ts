@@ -6,16 +6,23 @@ import {
   toTitleSnakeCase,
   toUpperSnakeCase,
   generateFilesFromTemplate,
+  argMerger,
 } from "../../../utils";
 import inquirer = require("inquirer");
+import { OptionsType } from "../../../types";
 
-export default async function createPlugin(options: any) {
+export default async function createPlugin(optionsFromYargs: OptionsType) {
+  //pull from configs
+  const options = argMerger(optionsFromYargs, "plugin");
+
   console.log("creating plugin with options", options);
+
   const templatePath = "plugin/plugin-name";
   let destination: string;
 
   //get the name
   const pluginName = await getPluginName(options.pluginName);
+
   //generate defaults
   const defaults = generateDefaultOptions(pluginName);
 
@@ -27,7 +34,10 @@ export default async function createPlugin(options: any) {
     destination = process.cwd();
   }
 
-  const searchAndReplaceConfig = await inquireOfOptions(options, defaults);
+  const searchAndReplaceConfig = await inquireOfOptions(
+    options as PluginOptions,
+    defaults
+  );
 
   destination = await getDestination(searchAndReplaceConfig.kebabCase.replace);
 
@@ -39,7 +49,7 @@ export default async function createPlugin(options: any) {
 }
 
 async function inquireOfOptions(
-  options: PluginOptions & { pluginName: string },
+  options: PluginOptions,
   defaults: PluginOptions
 ): Promise<CaseInterface> {
   const searchAndReplaceConfig = {
@@ -63,7 +73,7 @@ async function inquireOfOptions(
 
   const questions = [];
 
-  if ("pluginSlug" in options) {
+  if (options.pluginSlug) {
     searchAndReplaceConfig.kebabCase.replace = String(options.pluginSlug);
   } else {
     questions.push(
@@ -103,7 +113,7 @@ async function inquireOfOptions(
     );
   }
 
-  if ("pluginClass" in options) {
+  if (options.pluginClass) {
     searchAndReplaceConfig.snakeCase.replace = toSnakeCase(
       String(options.pluginClass)
     );

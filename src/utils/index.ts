@@ -1,4 +1,5 @@
 export * from "./handle-templates";
+export * from "./arg-merger";
 
 export function createPHPConst(string: string) {
   return string.toUpperCase().replace(" ", "-").split("-").join("_");
