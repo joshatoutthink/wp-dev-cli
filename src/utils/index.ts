@@ -30,7 +30,7 @@ export function toKebabCase(string: string): string {
 }
 
 function upperCaseInEach(words: string, splitOn: string): string {
-  return words.split(splitOn).map(capFirst).join(splitOn).toUpperCase();
+  return words.split(splitOn).map(capFirst).join(splitOn);
 }
 function capFirst(word: string) {
   const cap = word.charAt(0).toUpperCase();
