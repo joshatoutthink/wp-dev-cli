@@ -8,6 +8,7 @@ exports.builder = {
   pluginClass: {},
   pluginInstance: {},
   pluginDescription: {},
+  template: {},
 };
 //
 exports.handler = createPlugin;

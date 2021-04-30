@@ -14,13 +14,18 @@ import {
   PluginOptions,
   searchAndReplaceConfig as pluginSearAndReplaceConfig,
 } from "./pluginTypes";
+
+/**
+ * Creates the plugin
+ * @param optionsFromYargs
+ */
 export default async function createPlugin(optionsFromYargs: OptionsType) {
   //pull from configs
   const options = argMerger(optionsFromYargs, "plugin");
 
   console.log("creating plugin with options", options);
 
-  const templatePath = "plugin/plugin-name";
+  const templatePath = `plugin/${options.template ? options.template : "wppb"}`;
   let destination: string;
 
   //get the name
