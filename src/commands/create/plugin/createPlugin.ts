@@ -27,48 +27,16 @@ export default async function createPlugin(options: any) {
     destination = process.cwd();
   }
 
-  // if (isInteractive(options)) {
   const searchAndReplaceConfig = await inquireOfOptions(options, defaults);
-  // }
 
   destination = await getDestination(searchAndReplaceConfig.kebabCase.replace);
 
-  //Create Cases or ask for them
-  console.log({
-    templatePath,
-    destination,
-    searchAndReplaceConfig,
-  });
   generateFilesFromTemplate({
     templatePath,
     destination,
     searchAndReplaceConfig,
   });
 }
-// const testPluginInfo = {
-//   templatePath: "plugin/plugin-name",
-//   destination: process.cwd() + "/test",
-//   searchAndReplaceConfig: {
-//     snakeCase: {
-//       search: "plugin_name",
-//       replace: "my_plugin",
-//     },
-//     kebabCase: {
-//       search: "plugin-name",
-//       replace: "my-plugin",
-//     },
-//     upperSnakeCase: {
-//       search: "PLUGIN_NAME",
-//       replace: "MY_PLUGIN",
-//     },
-//     TitleSnakeCase: {
-//       search: "Plugin_Name",
-//       replace: "My_Plugin",
-//     },
-//   },
-// };
-
-// generateFilesFromTemplate({ ...testPluginInfo }).catch(console.error);
 
 async function inquireOfOptions(
   options: PluginOptions & { pluginName: string },
