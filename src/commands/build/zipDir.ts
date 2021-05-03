@@ -5,7 +5,11 @@ import * as fs from "fs";
  * @param {String} out
  * @returns {Promise}
  */
-export default function zipDir(source: string, out: string) {
+export default function zipDir(
+  source: string,
+  out: string,
+  ignoreGlob: string[] = []
+) {
   const archive = archiver("zip", { zlib: { level: 9 } });
   const stream = fs.createWriteStream(out);
 
@@ -13,7 +17,7 @@ export default function zipDir(source: string, out: string) {
     archive
       .glob("**", {
         cwd: source,
-        ignore: ["builds/**"],
+        ignore: ["node_modules/**", "builds/**", ...ignoreGlob],
       })
       .on("error", (err) => reject(err))
       .pipe(stream);
