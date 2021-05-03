@@ -13,6 +13,9 @@ exports.builder = {
   output: {
     default: path.join(root, `builds/${path.basename(process.cwd())}.zip`),
   },
+  ignoreFiles: {
+    default: [],
+  },
 };
 // @ts-ignore-next-line
 exports.handler = zipDirectory;
